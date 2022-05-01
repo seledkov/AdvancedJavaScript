@@ -1,44 +1,38 @@
 const defaultValue = 0;
 const calculationDescription = '(' + defaultValue + ' + 4) * 3 / 2 - 5 ** 2';
-let currentResult;
+let currentResult = defaultValue;
 
-function add(num1, num2) {
-  const result = num1 + num2;
-  return result;
+function add() {
+  let enteredNumber = +userInput.value;
+  const calcDescription = `${currentResult} + ${enteredNumber}`;
+  currentResult = currentResult + enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+
+  outputResult(currentResult, calcDescription);
 }
-currentResult = add(2, 4);
 
-outputResult(currentResult, calculationDescription);
+function subtract() {
+  const enteredNumber = +userInput.value;
+  const calcDescription = `${currentResult} - ${enteredNumber}`;
+  currentResult = currentResult - enteredNumber; // window.parseInt()  or + === Number() or parseFloat
 
-async function foo(callback) {
-  setTimeout(() => {
-    callback('A');
-  }, Math.random() * 1000);
+  outputResult(currentResult, calcDescription);
 }
-const bar = async (callback) => {
-  setTimeout(() => {
-    callback('B');
-  }, Math.random() * 1000);
-};
+function multiply() {
+  const enteredNumber = +userInput.value;
+  const calcDescription = `${currentResult} * ${enteredNumber}`;
+  currentResult = currentResult * enteredNumber; // window.parseInt()  or + === Number() or parseFloat
 
-const baz = async (callback) => {
-  setTimeout(() => {
-    callback('C');
-  }, Math.random() * 1000);
-};
+  outputResult(currentResult, calcDescription);
+}
+function divide() {
+  const enteredNumber = +userInput.value;
+  const calcDescription = `${currentResult} / ${enteredNumber}`;
+  currentResult = currentResult / enteredNumber; // window.parseInt()  or + === Number() or parseFloat
 
-const first = (func) => {
-  return new Promise((resolve) => {
-    func(resolve);
-  });
-};
+  outputResult(currentResult, calcDescription);
+}
 
-const final = async () => {
-  let a = await first(foo);
-  console.log(a);
-  let b = await first(bar);
-  console.log(b);
-  let c = await first(baz);
-  console.log(c);
-};
-final();
+addBtn.addEventListener('click', add);
+subtractBtn.addEventListener('click', subtract);
+multiplyBtn.addEventListener('click', multiply);
+divideBtn.addEventListener('click', divide);
