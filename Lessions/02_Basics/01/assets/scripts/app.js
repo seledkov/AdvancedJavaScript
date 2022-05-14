@@ -1,34 +1,59 @@
 const defaultValue = 0;
 const calculationDescription = '(' + defaultValue + ' + 4) * 3 / 2 - 5 ** 2';
 let currentResult = defaultValue;
+let logEntries = [];
+
+const addEntryToLog = (operation, prevValue, addedValue, operationResult) => {
+  const logEntry = {
+    operation: operation,
+    prevValue: prevValue,
+    addedValue: addedValue,
+    operationResult: operationResult,
+  };
+  logEntries.push(logEntry);
+  console.log(logEntries);
+};
 
 function add() {
   let enteredNumber = +userInput.value;
-  const calcDescription = `${currentResult} + ${enteredNumber}`;
-  currentResult = currentResult + enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+  const prevValue = currentResult;
 
+  const calcDescription = `${prevValue} + ${enteredNumber}`;
+
+  currentResult = prevValue + enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+
+  addEntryToLog('ADD', prevValue, enteredNumber, currentResult);
   outputResult(currentResult, calcDescription);
 }
 
 function subtract() {
   const enteredNumber = +userInput.value;
-  const calcDescription = `${currentResult} - ${enteredNumber}`;
-  currentResult = currentResult - enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+  const prevValue = currentResult;
+  const calcDescription = `${prevValue} - ${enteredNumber}`;
 
+  currentResult = prevValue - enteredNumber;
+
+  addEntryToLog('SUBSTRACT', prevValue, enteredNumber, currentResult);
   outputResult(currentResult, calcDescription);
 }
 function multiply() {
   const enteredNumber = +userInput.value;
-  const calcDescription = `${currentResult} * ${enteredNumber}`;
-  currentResult = currentResult * enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+  const prevValue = currentResult;
+  const calcDescription = `${prevValue} * ${enteredNumber}`;
 
+  currentResult = prevValue * enteredNumber;
+
+  addEntryToLog('MULTIPLY', prevValue, enteredNumber, currentResult);
   outputResult(currentResult, calcDescription);
 }
 function divide() {
   const enteredNumber = +userInput.value;
-  const calcDescription = `${currentResult} / ${enteredNumber}`;
-  currentResult = currentResult / enteredNumber; // window.parseInt()  or + === Number() or parseFloat
+  const prevValue = currentResult;
+  const calcDescription = `${prevValue} / ${enteredNumber}`;
 
+  currentResult = prevValue / enteredNumber;
+
+  addEntryToLog('DIVIDE', prevValue, enteredNumber, currentResult);
   outputResult(currentResult, calcDescription);
 }
 
