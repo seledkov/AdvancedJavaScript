@@ -116,7 +116,24 @@ const healHandler = () => {
 };
 
 const logBattleHandler = () => {
-  console.log(battleLog);
+  // for (let i = 0; i < 3; i++) {
+  //   console.log('loop start');
+  //   console.log(i, 'first i');
+  //   if (i > 1) {
+  //     return;
+  //   }
+  //   console.log(i, 'second i');
+  //   console.log('loop end');
+  // }
+
+  for (let i = 0; i < battleLog.length; i++) {
+    console.log(battleLog[i]);
+    break;
+  }
+
+  for (const element of battleLog) {
+    console.log(element);
+  }
 };
 
 attackBtn.addEventListener('click', attackMonsterHandler);
