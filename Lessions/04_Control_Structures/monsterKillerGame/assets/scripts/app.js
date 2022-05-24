@@ -14,7 +14,29 @@ const LOG_EVENT_GAME_OVER = 'LOG_EVENT_GAME_OVER';
 
 const battleLog = [];
 
-let chosenMaxLife = 100;
+const getHealValue = () => {
+  const enteredValue = prompt('write max hp', '100');
+
+  const parsedvalue = parseInt(enteredValue);
+
+  if (isNaN(parsedvalue) || parsedvalue <= 0) {
+    // throw new Error('invalid input value');
+    throw { message: 'invalid input value, not a number' };
+  }
+
+  return parsedvalue;
+};
+
+let chosenMaxLife;
+try {
+  chosenMaxLife = getHealValue();
+} catch (error) {
+  console.log(error);
+  chosenMaxLife = 100;
+} finally {
+  // maybe clear data
+}
+
 let currentMonsterLife = chosenMaxLife;
 let currentPlayerLife = chosenMaxLife;
 let hasBonusLife = true;
