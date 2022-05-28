@@ -27,19 +27,21 @@ function greet() {
 greet();
 
 // ==== var job ====
+
+// ('use strict');
 // for (var i = 0; i < 4; i++) {
 //   setTimeout(() => {
 //     console.log(i);
 //   });
 // }
 
-for (let i = 0; i < 4; i++) {
-  setTimeout(() => console.log(i));
-}
-
-// for (var i = 0; i < 4; i++) {
-//   console.log(i);
+// for (let i = 0; i < 4; i++) {
+//   setTimeout(() => console.log(i));
 // }
+
+for (var i = 0; i < 4; i++) {
+  console.log(i);
+}
 
 // secondName hoisting and assign undefined
 console.log(secondName);
@@ -49,3 +51,15 @@ var secondName = 'second';
 var a;
 // js engine clear next var and assign 5 to a
 var a = 5;
+
+// if forgot varable keyword, js add invisible 'var', as var b = 15
+myName = 15;
+console.log('myName', myName);
+
+// did not work
+var undefined = 10;
+
+// did not work if not assigned
+// noName;
+// console.log(noName);
+console.log('undefined', undefined);
