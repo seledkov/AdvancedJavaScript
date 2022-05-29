@@ -1,17 +1,26 @@
-// const addListenerBtn = document.getElementById('add-listener-btn');
-// const clickableBtn = document.getElementById('clickable-btn');
-// const messageInput = document.getElementById('click-message-input');
+const addListenerBtn = document.getElementById('add-listener-btn');
+const clickableBtn = document.getElementById('clickable-btn');
+const messageInput = document.getElementById('click-message-input');
 
-// function printMessage() {
-//   const value = messageInput.value;
-//   console.log(value || 'Clicked me!');
-// }
+let person = { name: 'max' };
+person = null;
 
-// function addListener() {
-//   clickableBtn.addEventListener('click', printMessage);
-// }
+function printMessage() {
+  const value = messageInput.value;
+  console.log(value || 'Clicked me!');
+}
 
-// addListenerBtn.addEventListener('click', addListener);
+function addListener() {
+  clickableBtn.addEventListener('click', printMessage);
+  // memory leaks, anonumous () => code... - as new foo every addEventListener and added
+  clickableBtn.addEventListener('click', () => console.log('hi'));
+  // memory leaks, anonymous foo also... - as new foo every addEventListener and added
+  clickableBtn.addEventListener('click', function () {
+    console.log('hi i am anonymous');
+  });
+}
+
+addListenerBtn.addEventListener('click', addListener);
 
 //==== js engine heap and stack
 
