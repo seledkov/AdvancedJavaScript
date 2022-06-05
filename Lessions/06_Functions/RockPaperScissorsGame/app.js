@@ -45,7 +45,11 @@ const getComputerChoise = () => {
   return computerSelect;
 };
 
-const getGameResult = (computerChoice, playerChoice) => {
+// the default value will work only when passed *undefined@*, it will not work with other falsy values
+const getGameResult = (
+  computerChoice = selection.DEFAULT_VALUE,
+  playerChoice = selection.DEFAULT_VALUE,
+) => {
   let gameResult;
 
   if (computerChoice === playerChoice) {
