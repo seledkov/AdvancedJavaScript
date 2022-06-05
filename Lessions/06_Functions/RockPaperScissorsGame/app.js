@@ -98,3 +98,18 @@ const startGameHandler = () => {
 // anonFoo(); // anonFoo
 
 startGameBtn.addEventListener('click', startGameHandler);
+
+const sum = function (a, b, ...numbers) {
+  const validate = (number) => {
+    return isNaN(number) ? 0 : number;
+  };
+  let result = 0;
+  // arguments only in declaration foo
+  console.dir(arguments);
+  console.dir(numbers);
+  for (const num of numbers) {
+    result += validate(num);
+  }
+  return result;
+};
+console.log(sum(1, 3, 4, 5, 3, 24, 4));
