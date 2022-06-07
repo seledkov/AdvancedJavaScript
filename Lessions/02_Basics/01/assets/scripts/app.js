@@ -57,6 +57,28 @@ function divide() {
   outputResult(currentResult, calcDescription);
 }
 
+function calculate(operation){
+  const enteredNumber = +userInput.value;
+  const prevValue = currentResult;
+  let calcDescription;
+  if (operation === 'ADD'){
+     calcDescription = `${prevValue} + ${enteredNumber}`;
+    currentResult = prevValue + enteredNumber;
+  } else  if (operation === 'SUBSTRACT'){
+    calcDescription = `${prevValue} + ${enteredNumber}`;
+    currentResult = prevValue + enteredNumber;
+  } else  if (operation === 'MULTIPLY'){
+    calcDescription = `${prevValue} + ${enteredNumber}`;
+    currentResult = prevValue + enteredNumber;
+  } else (operation === 'DIVIDE'){
+    calcDescription = `${prevValue} + ${enteredNumber}`;
+    currentResult = prevValue + enteredNumber;
+  }  
+  addEntryToLog(operation, prevValue, enteredNumber, currentResult);
+  outputResult(currentResult, calcDescription);
+
+}
+
 addBtn.addEventListener('click', add);
 subtractBtn.addEventListener('click', subtract);
 multiplyBtn.addEventListener('click', multiply);
