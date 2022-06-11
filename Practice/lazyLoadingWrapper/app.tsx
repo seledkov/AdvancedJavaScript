@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { useLazyScrollingWrapper } from './assignment';
+import { useLazyScrollingWrapper } from './lazyLoading';
 
 const $Container = styled.div`
   border: 1px solid red;
