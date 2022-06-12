@@ -26,3 +26,21 @@ console.log(updatedNumbers, numbers);
 
 // numbers.indexOf(item, startIndex?) // return first finded index
 // numbers.lastIndexOf(item, startIndex?) // return last finded index
+numbers.includes(9, 3); // (findedItem, startIndex), return true/false if find
+const people = [
+  { name: 'max', age: 30 },
+  { name: 'manu', age: 22 },
+  { name: 'alex', age: 27 },
+];
+
+// return first cb true value from primitive and reference if obj
+const manuel = people.find((person, index, persons) => {
+  return person.name === 'manu';
+});
+
+const alex = people.findIndex((person) => person.name === 'alex');
+
+const names = ['alex', 'manu'];
+const resultIncludesPeople = people.filter((item) => names.includes(item.name));
+
+//Object.prototype.hasOwnProperty() // return true/false if has key (only self) ||(item in obj) return true/false if has self key or into prototype
