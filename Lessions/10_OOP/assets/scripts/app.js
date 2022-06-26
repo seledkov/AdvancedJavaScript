@@ -4,11 +4,31 @@ class Product {
   // description;
   // price;
 
-  constructor(title, description, price, imageUrl) {
+  constructor(title, image, desc, price) {
     this.title = title;
-    this.description = description;
+    this.imageUrl = image;
+    this.description = desc;
     this.price = price;
-    this.imageUrl = imageUrl;
+  }
+}
+
+class ShoppingCart {
+  items = [];
+
+  addProduct(product) {
+    this.items.push(product);
+    this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
+  }
+
+  render() {
+    const cartEl = document.createElement('section');
+    cartEl.innerHTML = `
+      <h2>Total: \$${0}</h2>
+      <button>Order Now!</button>
+    `;
+    cartEl.className = 'cart';
+    this.totalOutput = cartEl.querySelector('h2');
+    return cartEl;
   }
 }
 
@@ -16,55 +36,89 @@ class ProductItem {
   constructor(product) {
     this.product = product;
   }
-  render() {
-    const prodItemElement = document.createElement('li');
-    prodItemElement.classList.add('product-item');
-    prodItemElement.innerHTML = `
-      <div>
-        <img src='${this.product.imageUrl}'  title='${this.product.title}' />
-        <h2>${this.product.title}</h2>
-        <h3>\$${this.product.price}</h2>
-        <p>${this.product.description}</p>
-        <button>Add to cart</button>
-      </div>
-    `;
 
-    return prodItemElement;
+  addToCart() {
+    App.addProductToCart(this.product);
+  }
+
+  render() {
+    const prodEl = document.createElement('li');
+    prodEl.className = 'product-item';
+    prodEl.innerHTML = `
+        <div>
+          <img src="${this.product.imageUrl}" alt="${this.product.title}" >
+          <div class="product-item__content">
+            <h2>${this.product.title}</h2>
+            <h3>\$${this.product.price}</h3>
+            <p>${this.product.description}</p>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+      `;
+    const addCartButton = prodEl.querySelector('button');
+    addCartButton.addEventListener('click', this.addToCart.bind(this));
+    return prodEl;
   }
 }
 
 class ProductList {
   products = [
     new Product(
-      'Toyota',
-      'japan car',
-      1_000_000,
-      'https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXJsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      'A Pillow',
+      'https://www.maxpixel.net/static/photo/2x/Soft-Pillow-Green-Decoration-Deco-Snuggle-1241878.jpg',
+      'A soft pillow!',
+      19.99,
     ),
     new Product(
-      'Renault',
-      'france car',
-      1_200_000,
-      'https://images.unsplash.com/photo-1598128558393-70ff21433be0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXJsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+      'A Carpet',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ardabil_Carpet.jpg/397px-Ardabil_Carpet.jpg',
+      'A carpet which you might like - or not.',
+      89.99,
     ),
   ];
 
   constructor() {}
 
   render() {
-    const appRoot = document.getElementById('app');
-    const prodListElement = document.createElement('ul');
-    prodListElement.classList.add('product-list');
-
-    for (const product of this.products) {
-      const prodItem = new ProductItem(product);
-      const prodItemElement = prodItem.render();
-      prodListElement.append(prodItemElement);
+    const prodList = document.createElement('ul');
+    prodList.className = 'product-list';
+    for (const prod of this.products) {
+      const productItem = new ProductItem(prod);
+      const prodEl = productItem.render();
+      prodList.append(prodEl);
     }
-    appRoot.append(prodListElement);
+    return prodList;
   }
 }
 
-const productList = new ProductList();
+class Shop {
+  render() {
+    const renderHook = document.getElementById('app');
 
-productList.render();
+    this.cart = new ShoppingCart();
+    const cartEl = this.cart.render();
+    const productList = new ProductList();
+    const prodListEl = productList.render();
+
+    renderHook.append(cartEl);
+    renderHook.append(prodListEl);
+  }
+}
+
+class App {
+  // good practice if use static field
+  static cart;
+
+  static init() {
+    const shop = new Shop();
+    shop.render();
+    this.cart = shop.cart;
+  }
+
+  // Таким образом, мы как бы используем этот класс приложения и статический метод в качестве прокси, потому что в этом преимущество и вся идея использования этих статических методов, поскольку мы всегда работаем с классом, а не с экземплярами, мы не работаем с разными объектами.
+  static addProductToCart(product) {
+    this.cart.addProduct(product);
+  }
+}
+
+App.init();
